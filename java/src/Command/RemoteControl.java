@@ -1,5 +1,8 @@
 package Command;
 
+import java.util.List;
+import java.util.Stack;
+
 /**
  * Created by ekansrm on 11/13/16.
  * 遥控器
@@ -8,7 +11,7 @@ package Command;
 public class RemoteControl {
     private Command[] onCommands;
     private Command[] offCommands;
-    private Command preCommand;
+    private Stack<Command> preCommands;
     private int slotNum;
 
     public RemoteControl(int slotNum) {
@@ -21,7 +24,7 @@ public class RemoteControl {
             onCommands[i] = noCommand;
             offCommands[i] = noCommand;
         }
-        preCommand = noCommand;
+        preCommands = new Stack<Command>();
 
     }
 
@@ -32,12 +35,18 @@ public class RemoteControl {
 
     public void onButtonWasPushed(int slot) {
         onCommands[slot].execute();
-        preCommand = onCommands[slot];
+        preCommands.push(onCommands[slot]);
     }
 
     public void offButtonWasPushed(int slot) {
         offCommands[slot].execute();
-        preCommand = offCommands[slot];
+        preCommands.push(offCommands[slot]);
+    }
+
+    public void undoButtonWasPushed() {
+        if (!preCommands.empty()) {
+            preCommands.pop().undo();
+        }
     }
 
     @Override
@@ -47,7 +56,7 @@ public class RemoteControl {
         for (int i = 0; i < onCommands.length; i += 1) {
             stringBuffer.append("[slot ").append(i).append("]")
                     .append(onCommands[i].getClass().getName())
-                    .append("\t\t\t\t")
+                    .append("  ")
                     .append(offCommands[i].getClass().getName())
                     .append("\n");
         }

@@ -12,10 +12,10 @@ public class Light {
     }
 
     public void on() {
-        System.out.printf("%s light is on", name);
+        System.out.printf("%s light is on\n", name);
     }
 
     public void off() {
-        System.out.printf("%s light is off", name);
+        System.out.printf("%s light is off\n", name);
     }
 }
