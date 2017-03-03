@@ -23,9 +23,10 @@ public class DuckSimulator {
         flockOfQuacker.add(redheadDuck);
         flockOfQuacker.add(duckCall);
         flockOfQuacker.add(gooseAdaptor);
+        flockOfQuacker.registerObserver(quacklogist);
 
 
-        mallaDuck.registerObserver(quacklogist);
+//        mallaDuck.registerObserver(quacklogist);
 
         simmulate(mallaDuck);
         simmulate(redheadDuck);
